@@ -59,13 +59,12 @@ In embedded systems, physical access is the ultimate vulnerability. Secure Boot 
       - If they match: The payload is perfect. It wasn't corrupted during the download, and no one tampered with it. SWUpdate tells the bootloader to switch partitions.
       - If they do NOT match: The payload is corrupted. Maybe a network packet dropped, or maybe your flash memory has a bad block. SWUpdate throws an error and does not tell the bootloader to switch partitions. Your device is saved from booting a broken filesystem.
   
-   7. My Question
+7. My Question
       But if the hacker hold the true signature manifest, and only change the rootfs.ext4 in .swu file. So that, it can pass the manifest trust and the device continue to use the sw-description text file
 
       The Setup: The hacker takes your official, perfectly valid v1.0.swu file.
       The Swap: They unzip it, delete your real rootfs.ext4, put in their own malicious rootfs.ext4 (let's say they added a hidden backdoor), and zip it back up into a new .swu file. They leave your original sw-description and sw-description.sig completely untouched.
       The Trap: They send this modified .swu file to your camera.
-
       Now, let's watch what SWUpdate does:
       - Step 1: The Bouncer (Manifest Check): SWUpdate reads the original sw-description and the original sw-description.sig. Because the hacker didn't touch these, the math passes. SWUpdate says, "Okay, I trust this manifest."
       - Step 2: The Stream: SWUpdate starts reading the hacker's malicious rootfs.ext4. As it reads it, it calculates the SHA-256 hash of this malicious file. Let's say the hacker's file generates a hash of 999xxx...
