@@ -12,3 +12,5 @@ In embedded systems, physical access is the ultimate vulnerability. Secure Boot 
   - FSBL uses its verified Public Key to verify → U-Boot (Second Stage Bootloader).
   - U-Boot uses its verified Public Key to verify → FIT Image (Linux Kernel + Device Tree bundled together).
   - Linux Kernel uses a cryptographic hash tree to verify → Root Filesystem (via dm-verity).
+3. Workflow
+  ![Workflow](Diagram.drawio.svg)
